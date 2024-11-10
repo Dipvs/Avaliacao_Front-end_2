@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Login</title>
+    <link rel="stylesheet" href="css/default.css" />
+    <style>
+      /* Estilo para centralizar e modernizar o design */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f4f4f9;
+        font-family: Arial, sans-serif;
+      }
+
+      .page {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+      }
+
+      .entry {
+        margin-bottom: 1rem;
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #666;
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+      }
+
+      .buttons {
+        margin-top: 1.5rem;
+      }
+
+      .button {
+        width: 100%;
+        padding: 0.8rem;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #0056b3;
+      }
+
+      #errorMsg {
+        margin-top: 1rem;
+        color: red;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <main>
+        <form id="loginForm">
+          <div class="entry">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" required />
+          </div>
+
+          <div class="entry">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" required />
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="button">Entrar</button>
+          </div>
+        </form>
+
+        <p id="errorMsg">E-mail e Senha inválidos</p>
+      </main>
+    </div>
+
+    <!-- Inclusão dos scripts -->
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <script src="js/api.js"></script>
+
+    <script>
+      // Função de autenticação
+      $('#loginForm').on('submit', function(event) {
+        event.preventDefault(); // Evita o envio padrão do formulário
+
+        // Obtém os valores dos campos
+        var email = $('#email').val();
+        var senha = $('#senha').val();
+
+        // Cria o objeto de autenticação
+        var objLoginSenha = {
+          email: email,
+          senha: senha
+        };
+
+        // Chama a função validarUsuario do api.js
+        var isValid = validarUsuario(objLoginSenha);
+
+        if (isValid) {
+          // Redireciona para a página mensagens.html se o login for bem-sucedido
+          window.location.href = 'mensagens.html';
+        } else {
+          // Exibe mensagem de erro se o login falhar
+          $('#errorMsg').show();
+        }
+      });
+    </script>
+  </body>
+</html>
